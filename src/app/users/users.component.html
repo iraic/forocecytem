@@ -1,0 +1,26 @@
+<app-menu></app-menu>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Correo</th>
+            <th>Usuario</th>
+            <th>Avatar</th>
+            <th>Permiso</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let u of userlist">
+            <td>{{u.id}}</td>
+            <td>{{u.name}}</td>
+            <td>{{u.email}}</td>
+            <td>{{u.username}}</td>
+            <td>{{u.avatar}}</td>
+            <td>{{u.role}}</td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
