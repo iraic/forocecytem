@@ -18,29 +18,24 @@ export class ApiRestService {
 
   getAllUsers(){
     let token = localStorage.getItem('token') || ''
-    return this.http.get<any>(`${this.url}users`, {headers: {Authorization: token}})
+    return this.http.get<any>(`${this.url}users?rows=100`, {headers: {Authorization: token}})
   }
 
-  createUser(name: string, username: string, password: string, email: string, role: string){
+  createUser(user:any){
     let token = localStorage.getItem('token') || ''
     let datos = new FormData()
-    datos.append('name', name)
-    datos.append('username', username)
-    datos.append('password', password)
-    datos.append('email', email)
-    datos.append('role', role)
+    datos.append('name', user.name)
+    datos.append('username', user.username)
+    datos.append('password', user.password)
+    datos.append('email', user.email)
+    datos.append('avatar', user.avatar)
+    datos.append('role', user.role)
     return this.http.post<any>(`${this.url}users`, datos,  {headers: {Authorization: token}})
   }
 
-  updateUser(id: number, name: string, username: string, password: string, email: string, role: string){
+  updateUser(user:any){
     let token = localStorage.getItem('token') || ''
-    let datos = new HttpParams()
-    datos.append('name', name)
-    datos.append('username', username)
-    datos.append('password', password)
-    datos.append('email', email)
-    datos.append('role', role)
-    return this.http.put<any>(`${this.url}users/${id}`,datos, {headers: {Authorization: token}, params: datos})
+    return this.http.put<any>(`${this.url}users/${user.id}`,user, {headers: {Authorization: token}})
   }
 
   deteleUser(id: number){

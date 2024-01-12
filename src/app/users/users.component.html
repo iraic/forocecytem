@@ -18,9 +18,87 @@
             <td>{{u.name}}</td>
             <td>{{u.email}}</td>
             <td>{{u.username}}</td>
-            <td>{{u.avatar}}</td>
+            <td><img src="{{u.avatar}}" width="100px" height="100px"></td>
             <td>{{u.role}}</td>
-            <td></td>
+            <td>
+                <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#agregarUsuario"><i class="bi bi-person-add"></i></button>
+                <button (click)="selectUser(u)" class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#modificarUsuario"><i class="bi bi-pencil-fill"></i></button>
+                <button (click)="selectUser(u)" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#eliminarUsuario"><i class="bi bi-trash-fill"></i></button>
+            </td>
         </tr>
     </tbody>
 </table>
+
+<!-- Modal para Agregar -->
+<div class="modal fade" id="agregarUsuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar nuevo Usuario</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <input type="text" class="form-control mb-1" placeholder="Nombre" [(ngModel)]="newUser.name">
+            <input type="text" class="form-control mb-1" placeholder="Correo" [(ngModel)]="newUser.email">
+            <input type="text" class="form-control mb-1" placeholder="Usuario" [(ngModel)]="newUser.username">
+            <input type="password" class="form-control mb-1" placeholder="Contraseña" [(ngModel)]="newUser.password">
+            <input type="text" class="form-control mb-1" placeholder="Avatar" [(ngModel)]="newUser.avatar">
+            <select class="form-select" placeholder="Tipo de usuario" [(ngModel)]="newUser.role">
+                <option value="admin">Administrador</option>
+                <option value="user">Usuario</option>
+            </select>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="saveUser()">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- Modal para Modificar -->
+<div class="modal fade" id="modificarUsuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Editar datos de Usuario</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <input type="text" class="form-control mb-1" placeholder="Id" [(ngModel)]="editUser.id" disabled>
+            <input type="text" class="form-control mb-1" placeholder="Nombre" [(ngModel)]="editUser.name">
+            <input type="text" class="form-control mb-1" placeholder="Correo" [(ngModel)]="editUser.email">
+            <input type="text" class="form-control mb-1" placeholder="Usuario" [(ngModel)]="editUser.username">
+            <!-- <input type="password" class="form-control mb-1" placeholder="Contraseña" [(ngModel)]="editUser.password"> -->
+            <input type="text" class="form-control mb-1" placeholder="Avatar" [(ngModel)]="editUser.avatar">
+            <select class="form-select" placeholder="Tipo de usuario" [(ngModel)]="editUser.role">
+                <option value="admin">Administrador</option>
+                <option value="user">Usuario</option>
+            </select>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="saveChanges()">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- Modal para Eliminar -->
+<div class="modal fade" id="eliminarUsuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar Usuario</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <p>¿Esta seguro que quiere eliminar el usuario <b>{{editUser.username}}</b> ?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="delUser()">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>
